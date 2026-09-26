@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            🎓
+            <span>Student Management<br>System</span>
+        </div>
+
+        <a href="/dashboard" class="menu active">
+            🏠 Dashboard
+        </a>
+
+        <a href="/add_student" class="menu">
+            👤 Add Student
+        </a>
+
+        <a href="/students" class="menu">
+            👥 View Students
+        </a>
+
+        <a href="/search" class="menu">
+             🔍 Search Student
+        </a>
+
+        <a href="/logout" class="menu logout-menu">
+            🚪 Logout
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+       <div class="top-bar">
+
+    <div class="dashboard-heading">
+        <h1>Dashboard</h1>
+        <p>Welcome to Student Management System</p>
+    </div>
+
+    <div class="top-actions">
+
+        <a href="/admin_profile" class="admin">
+            👤 Admin
+        </a>
+
+    </div>
+
+</div>
+
+
+        <!-- Dashboard Statistics -->
+        <div class="stats">
+
+            <!-- Total Students -->
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div>
+                    <h3>{{ total_students }}</h3>
+                    <p>Total Students</p>
+                </div>
+
+            </div>
+
+
+            <!-- Total Courses -->
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div>
+                    <h3>{{ total_courses }}</h3>
+                    <p>Total Courses</p>
+                </div>
+
+            </div>
+
+
+            <!-- Add Student -->
+            <a href="/add_student" class="stat-card stat-link">
+
+                <div class="stat-icon">
+                    ➕
+                </div>
+
+                <div>
+                    <h3>Add Student</h3>
+                    <p>Register New Student</p>
+                </div>
+
+            </a>
+
+
+            <!-- View Students -->
+            <a href="/students" class="stat-card stat-link">
+
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <div>
+                    <h3>View Students</h3>
+                    <p>All Student Records</p>
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- Main Sections -->
+        <div class="dashboard-sections">
+
+            <!-- Recent Students -->
+<div class="section-card">
+
+    <div class="section-title">
+
+        <div>
+            <h2>Recent Students</h2>
+            <p>Recently added student records</p>
+        </div>
+
+        <a href="/students" class="view-all">
+            View All
+        </a>
+
+    </div>
+
+
+    {% if recent_students %}
+
+    <div class="recent-table-container">
+
+        <table class="recent-table">
+
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>Course</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for student in recent_students %}
+
+                <tr>
+
+                    <td>
+
+                      {{ loop.index }}
+
+                    </td>
+
+                    <td>
+                        <strong>{{ student[1] }}</strong>
+                    </td>
+
+                    <td>
+                        {{ student[2] }}
+                    </td>
+
+                    <td>
+                        <span class="course-badge">
+                            {{ student[4] }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ student[5] or "-" }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-students">
+
+        <div>👥</div>
+
+        <h3>No Students Yet</h3>
+
+        <p>
+            Add your first student to see records here.
+        </p>
+
+        <a href="/add_student" class="add-button">
+            ➕ Add Student
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+   
+
+            <!-- Quick Actions -->
+            <div class="section-card">
+
+                <h2>Quick Actions</h2>
+
+                <a href="/add_student" class="action">
+
+                    <span>➕</span>
+
+                    <div>
+                        <strong>Add New Student</strong>
+                        <small>Register a new student</small>
+                    </div>
+
+                    <b>›</b>
+
+                </a>
+
+
+                <a href="/students" class="action">
+
+                    <span>👥</span>
+
+                    <div>
+                        <strong>View All Students</strong>
+                        <small>See all student records</small>
+                    </div>
+
+                    <b>›</b>
+
+                </a>
+
+
+                <a href="/search" class="action">
+
+                    <span>🔍</span>
+
+                    <div>
+                        <strong>Search Student</strong>
+                        <small>Find student information</small>
+                    </div>
+
+                    <b>›</b>
+
+                </a>
+
+
+                <a href="/logout" class="action">
+
+                    <span>🚪</span>
+
+                    <div>
+                        <strong>Logout</strong>
+                        <small>Exit administrator panel</small>
+                    </div>
+
+                    <b>›</b>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <footer>
+            ©️ 2026 Student Management System. All rights reserved.
+        </footer>
+
+    </div>
+
+</body>
+</html>

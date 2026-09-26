@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            🎓
+            <span>Student Management<br>System</span>
+        </div>
+
+        <a href="/dashboard" class="menu">
+            🏠 Dashboard
+        </a>
+
+        <a href="/add_student" class="menu">
+            👤 Add Student
+        </a>
+
+        <a href="/students" class="menu">
+            👥 View Students
+        </a>
+
+        <a href="/search" class="menu">
+            🔍 Search Student
+        </a>
+
+        <a href="/admin_profile" class="menu active">
+            ⚙️ Admin Profile
+        </a>
+
+        <a href="/logout" class="menu logout-menu">
+            🚪 Logout
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Top Bar -->
+        <div class="top-bar">
+
+            <div>
+                <h1>Admin Profile</h1>
+                <p>Manage your administrator account</p>
+            </div>
+
+            <div class="admin">
+                👤 Welcome, Admin
+            </div>
+
+        </div>
+
+
+        <!-- Back Button -->
+        <a href="/dashboard" class="back-button">
+            ← Back to Dashboard
+        </a>
+
+
+        <!-- Profile -->
+        <div class="profile-container">
+
+            <!-- Profile Header -->
+            <div class="profile-header">
+
+                <div class="profile-avatar">
+                    👤
+                </div>
+
+                <div class="profile-info">
+                    <h2>Admin</h2>
+                    <p>Administrator</p>
+                    <span>🟢 Active Account</span>
+                </div>
+
+            </div>
+
+
+            <!-- Account Information -->
+            <div class="profile-card">
+
+                <div class="profile-card-heading">
+                    <h2>Account Information</h2>
+                    <p>Your administrator account details</p>
+                </div>
+
+
+                <div class="profile-details">
+
+                    <div class="profile-detail">
+                        <label>Full Name</label>
+                        <strong>{{ admin['name'] }}</strong>
+                    </div>
+
+                    <div class="profile-detail">
+                        <label>Username</label>
+                        <strong>{{ admin['username'] }}</strong>
+                    </div>
+
+                    <div class="profile-detail">
+                        <label>Email</label>
+                        <strong>{{ admin['email'] }}</strong>
+                    </div>
+
+                    <div class="profile-detail">
+                        <label>Role</label>
+                        <strong>Administrator</strong>
+                    </div>
+
+                    <div class="profile-detail">
+                        <label>Account Status</label>
+                        <strong>🟢 Active</strong>
+                    </div>
+
+                    <div class="profile-detail">
+                        <label>System Access</label>
+                        <strong>Full Access</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+          <div class="profile-actions">
+
+           <a href="/edit_admin" class="profile-action">
+           ✏️ Edit Profile
+          </a>
+
+          <a href="/change_password" class="profile-action">
+         🔑 Change Password
+         </a>
+
+          <a href="/logout" class="profile-action logout-action">
+           🚪 Logout
+          </a>
+
+          </div>
+            
+
+
+         <footer>
+            ©️ 2026 Student Management System. All rights reserved.
+         </footer>
+
+    </div>
+
+</body>
+</html>

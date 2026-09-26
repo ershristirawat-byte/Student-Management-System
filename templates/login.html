@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="login-page">
+
+    <div class="login-wrapper">
+
+        <!-- Logo / Heading -->
+        <div class="login-heading">
+
+            <div class="login-logo">
+                🎓
+            </div>
+
+            <h1>Student Management System</h1>
+
+            <h2>Admin Login</h2>
+
+            <p>Login to manage student records</p>
+
+        </div>
+
+
+        <!-- Login Card -->
+        <div class="login-card">
+
+            <!-- Error Message -->
+            {% if error %}
+            <div class="login-error">
+                ⚠️ {{ error }}
+            </div>
+            {% endif %}
+
+
+            <form method="POST" action="{{ url_for('login') }}"
+                  
+                <!-- Username -->
+                <div class="login-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                 <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      placeholder="Enter admin username"
+                      autocomplete="off"
+                      required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="login-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-box">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword()">
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+                
+                <!-- Login Button -->
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginBtn">
+
+                    🔐 Login
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <p class="login-footer">
+            ©️ 2026 Student Management System
+            <br>
+            Admin Panel
+        </p>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".show-password");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "🙈";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "👁️";
+
+            }
+        }
+        
+    </script>
+
+</body>
+</html>

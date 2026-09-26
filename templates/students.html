@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Students</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        /* Delete Confirmation Modal */
+        .delete-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .delete-modal-content {
+            background: white;
+            width: 400px;
+            max-width: 90%;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+        }
+
+        .delete-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .delete-modal-content h2 {
+            margin: 10px 0;
+        }
+
+        .delete-modal-content p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .cancel-delete,
+        .confirm-delete {
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .cancel-delete {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .confirm-delete {
+            background: #dc2626;
+            color: white;
+        }
+
+        .cancel-delete:hover {
+            background: #d1d5db;
+        }
+
+        .confirm-delete:hover {
+            background: #b91c1c;
+        }
+    </style>
+</head>
+
+
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            🎓
+            <span>
+                Student Management<br>
+                System
+            </span>
+        </div>
+
+        <a href="/dashboard" class="menu">
+            🏠 Dashboard
+        </a>
+
+        <a href="/add_student" class="menu">
+            👤 Add Student
+        </a>
+
+        <a href="/students" class="menu active">
+            👥 View Students
+        </a>
+
+        <a href="/search" class="menu">
+            🔍 Search Student
+        </a>
+
+        <a href="/logout" class="menu logout-menu">
+            🚪 Logout
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <div class="top-bar">
+
+            <div>
+                <h1>View Students</h1>
+                <p>Manage all student records</p>
+            </div>
+
+            <div class="admin">
+                👤 Welcome, Admin
+            </div>
+
+        </div>
+
+
+        <!-- Back Button -->
+        <a href="/dashboard" class="back-button">
+            ← Back to Dashboard
+        </a>
+
+
+        <!-- Student Table -->
+        <div class="table-card">
+
+            <div class="table-header">
+
+                <div>
+                    <h2>Student List</h2>
+                    <p>All registered students</p>
+                </div>
+
+            </div>
+
+
+            {% if students %}
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Roll Number</th>
+                            <th>Email</th>
+                            <th>Course</th>
+                            <th>Phone</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for student in students %}
+
+                        <tr>
+
+                            <td>
+                                {{ loop.index }}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    {{ student["name"] }}
+                                </strong>
+                            </td>
+
+
+                            <td>
+                               {{ 100 + loop.index }}
+                            </td>
+
+
+                            <td>
+                                {{ student["email"] }}
+                            </td>
+
+
+                            <td>
+                                <span class="course-badge">
+                                    {{ student["course"] }}
+                                </span>
+                            </td>
+
+
+                            <td>
+                                {{ student["phone"] or "-" }}
+                            </td>
+
+
+                            <td>
+                                {{ student["gender"] or "-" }}
+                            </td>
+
+
+                            <td>
+                                {{ student["dob"] or "-" }}
+                            </td>
+
+
+                            <td class="action-buttons">
+
+                                <!-- Profile -->
+                                <a href="/student_profile/{{ student['id'] }}">
+                                    <button
+                                        type="button"
+                                        class="profile-btn">
+                                        👤 Profile
+                                    </button>
+                                </a>
+
+
+                                <!-- Update -->
+                                <a href="/update_student/{{ student['id'] }}">
+                                    <button
+                                        type="button"
+                                        class="update-btn">
+                                        ✏️ Update
+                                    </button>
+                                </a>
+
+                                <!-- Delete -->
+                                <button
+                                  type="button"
+                                  class="delete-btn"
+                                   data-id="{{ student['id'] }}"
+                                   data-name="{{ student['name'] }}"
+                                   onclick="openDeleteModal(this)">
+                                   🗑️ Delete
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            {% else %}
+
+            <div class="empty-students">
+
+                <div>👥</div>
+
+                <h3>No Students Found</h3>
+
+                <p>
+                    No student records are available yet.
+                </p>
+
+                <a href="/add_student" class="add-button">
+                    ➕ Add First Student
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <footer>
+            ©️ 2026 Student Management System.
+            All rights reserved.
+        </footer>
+
+    </div>
+
+
+    <!-- Delete Confirmation Modal -->
+
+    <div id="deleteModal" class="delete-modal">
+
+        <div class="delete-modal-content">
+
+            <div class="delete-icon">
+                🗑️
+            </div>
+
+            <h2>Delete Student</h2>
+
+            <p id="deleteMessage">
+                Are you sure you want to delete this student?
+            </p>
+
+
+            <div class="modal-buttons">
+
+                <button
+                    type="button"
+                    class="cancel-delete"
+                    onclick="closeDeleteModal()">
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="confirm-delete"
+                    onclick="confirmDelete()">
+                    🗑️ Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+<script>
+
+ let studentIdToDelete = null;
+
+function openDeleteModal(button) {
+
+    studentIdToDelete = button.getAttribute("data-id");
+
+    let studentName = button.getAttribute("data-name");
+
+    document.getElementById("deleteMessage").innerText =
+        "Are you sure you want to delete " + studentName + "?";
+
+    document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeDeleteModal() {
+
+    studentIdToDelete = null;
+
+    document.getElementById("deleteModal").style.display = "none";
+}
+
+function confirmDelete() {
+
+    if (studentIdToDelete !== null) {
+
+        window.location.href =
+            "/delete_student/" + studentIdToDelete;
+
+    }
+}
+ 
+
+window.onclick = function(event) {
+
+    let modal = document.getElementById("deleteModal");
+
+    if (event.target === modal) {
+        closeDeleteModal();
+    }
+
+}
+
+</script>
+
+       
+</body>
+</html>

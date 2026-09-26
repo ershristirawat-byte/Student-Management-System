@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            🎓
+            <span>Student Management<br>System</span>
+        </div>
+
+        <a href="/dashboard" class="menu">
+            🏠 Dashboard
+        </a>
+
+        <a href="/add_student" class="menu">
+            👤 Add Student
+        </a>
+
+        <a href="/students" class="menu active">
+            👥 View Students
+        </a>
+
+        <a href="/search" class="menu">
+            🔍 Search Student
+        </a>
+
+        <a href="/logout" class="menu logout-menu">
+            🚪 Logout
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Top Bar -->
+        <div class="top-bar">
+
+            <div>
+                <h1>Student Profile</h1>
+                <p>Complete student information</p>
+            </div>
+
+            <div class="admin">
+                👤 Welcome, Admin
+            </div>
+
+        </div>
+
+
+        <!-- Back Button -->
+        <a href="/students" class="back-button">
+            Back to Student List
+        </a>
+
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+
+
+            <!-- Student Details -->
+            <div class="profile-details">
+
+                <!-- Name -->
+                <div class="profile-item">
+                    <span>Name</span>
+                    <strong>{{ student["name"] }}</strong>
+                </div>
+
+
+                <!-- Roll Number -->
+                <div class="profile-item">
+                    <span>Roll Number</span>
+                    <strong>{{ student["roll_number"] }}</strong>
+                </div>
+
+
+                <!-- Email -->
+                <div class="profile-item">
+                    <span>Email</span>
+                    <strong>{{ student["email"] }}</strong>
+                </div>
+
+
+                <!-- Course -->
+                <div class="profile-item">
+                    <span>Course</span>
+                    <strong>{{ student["course"] }}</strong>
+                </div>
+
+
+                <!-- Phone -->
+                <div class="profile-item">
+                    <span>Phone</span>
+                    <strong>{{ student["phone"] or "-" }}</strong>
+                </div>
+
+
+                <!-- Gender -->
+                <div class="profile-item">
+                    <span>Gender</span>
+                    <strong>{{ student["gender"] or "-" }}</strong>
+                </div>
+
+
+                <!-- Date of Birth -->
+                <div class="profile-item">
+                    <span>Date of Birth</span>
+                    <strong>{{ student["dob"] or "-" }}</strong>
+                </div>
+
+
+                <!-- Student ID -->
+                <div class="profile-item">
+                    <span>Student ID</span>
+                    <strong>{{ student["id"] }}</strong>
+                </div>
+
+            </div>
+            
+
+        </div>
+
+
+        <!-- Footer -->
+        <footer>
+            ©️ 2026 Student Management System.
+            All rights reserved.
+        </footer>
+
+    </div>
+
+</body>
+</html>
